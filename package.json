@@ -6,7 +6,10 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "migrate": "psql -U postgres -d secrets_project -f db/migrate.sql",
+    "seed": "psql -U postgres -d secrets_project -f db/seed.sql",
+  "start:migrate": "npm run migrate && node server.js"
   },
   "keywords": [],
   "author": "",
