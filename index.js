@@ -6,6 +6,7 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import GoogleStrategy from "passport-google-oauth2";
 import session from "express-session";
+import connectPgSimple from "connect-pg-simple";
 import env from "dotenv";
 
 const app = express();
@@ -13,11 +14,22 @@ const port = 3000;
 const saltRounds = 10;
 env.config();
 
+const PgStore = connectPgSimple(session);
+
 app.use(
   session({
+    store: new PgStore({
+      conString: process.env.DATABASE_URL,
+      createTableIfMissing: true,
+    }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+    },
   })
 );
 app.use(bodyParser.urlencoded({ extended: true }));
