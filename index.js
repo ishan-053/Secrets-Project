@@ -14,6 +14,7 @@ const port = 3000;
 const saltRounds = 10;
 env.config();
 
+app.set('trust proxy', 1);
 const PgStore = connectPgSimple(session);
 
 app.use(
