@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { Pool } from 'pg';
+import pkg from 'pg';
+const { Pool } = pkg;
 import bcrypt from "bcryptjs";
 import passport from "passport";
 import { Strategy } from "passport-local";
