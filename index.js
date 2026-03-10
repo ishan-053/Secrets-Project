@@ -39,8 +39,7 @@ app.use(express.static("public"));
 app.use(passport.initialize());
 app.use(passport.session());
 
-import pkg from "pg";
-const { Pool } = pkg;
+
 
 const db = new Pool({
   connectionString: process.env.DATABASE_URL,
